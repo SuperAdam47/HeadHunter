@@ -5,7 +5,7 @@
  * Date: 2/16/2019
  * Time: 10:58 AM
  */
-namespace HeadHunter;
+namespace icirgio\HeadHunter;
 
 use pocketmine\utils\Config;
 use pocketmine\event\Listener;
