@@ -1,0 +1,19 @@
+
+#___ ___                     .______ ___               __
+#/   |   \   ____ _____     __| _/   |   \ __ __  _____/  |_  ___________
+#/    ~    \_/ __ \\__  \   / __ /    ~    \  |  \/    \   __\/ __ \_  __ \
+#\    Y    /\  ___/ / __ \_/ /_/ \    Y    /  |  /   |  \  | \  ___/|  | \/
+#\___|_  /  \___  >____  /\____ |\___|_  /|____/|___|  /__|  \___  >__|
+#\/       \/     \/      \/      \/            \/          \/
+# HeadHunting Plugin For Pocketmine-MP created by iCirgio
+# Here you can edit messages and percentage gotten when heads are sold
+
+# Percentage meaning the redeemer of the player head will get the certain percentage of the players head!
+# Use a number 0-100, anything above or below may give errors
+percantage: 0
+
+# When a player tries to redeem their own head
+own-head: "You cannot sell your own head"
+
+# When a player sells a head
+sell-head: "You sold a players head"
