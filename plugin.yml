@@ -2,5 +2,6 @@ name: HeadHunter
 version: 1.0
 main: icirgio\HeadHunter\Loader
 author: iCirgio
+depend: EconomyAPI
 description: "HeadHunting plugin for PMMP"
 api: [3.0.0]
