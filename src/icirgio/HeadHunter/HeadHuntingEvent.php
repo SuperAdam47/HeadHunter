@@ -29,8 +29,14 @@ class HeadHuntingEvent implements Listener
 
     public function onPlace(BlockPlaceEvent $event){
         //cancels head being placed...
-        if($event->getItem()->getId() == 397){
-            $event->setCancelled(true);
+        $nametag = $event->getItem()->getNamedTag();
+        if($nametag->hasTag("PlayerHead", StringTag::class)){
+            if($this->plugin->config->get("place-enabled") == 1){
+                $event->setCancelled(true);
+            } else {
+                $event->setCancelled(false);
+                $player->sendMessage($this->plugin->config->get("place-head"));
+            }
         }
     }
 
@@ -43,7 +49,7 @@ class HeadHuntingEvent implements Listener
         $head->setNamedTag($nametag);
         $head->setCustomName(TextFormat::AQUA . $name . TextFormat::GRAY . " Head");
         $head->setLore([
-            "\m" . TextFormat::AQUA . " * " . TextFormat::GRAY . "Click to redeem " . $percentage . " percent",
+            "\n" . TextFormat::AQUA . " * " . TextFormat::GRAY . "Click to redeem " . $percentage . " percent",
             TextFormat::AQUA . " * " . TextFormat::GRAY . "of" . $name . " balance"
         ]);
         $drops = $event->getDrops();
@@ -55,23 +61,23 @@ class HeadHuntingEvent implements Listener
         $item = $event->getItem();
         $block = $event->getBlock();
         $player = $event->getPlayer();
+        $nametag = $item->getNamedTag();
 
-        if($item->getId() == 397 && $block->getId() != 199){ //prevents duping from item frames
-            $nametag = $item->getNamedTag();
-            if($nametag->hasTag("PlayerHead", StringTag::class)){ //checks for tag
-                if($nametag->getString("PlayerHead") != $player->getName()){ // prevents player from selling their own head
-                    $head = $nametag->getString("PlayerHead");
-                    $headmoney = EconomyAPI::getInstance()->myMoney($head);
-                    $percentage = (int) $this->plugin->config->get("percentage");
-                    $moneystolen = $headmoney / $percentage;
-                    $player->sendMessage($this->plugin->config->get("sell-head"));
-                    EconomyAPI::getInstance()->addMoney($player, $moneystolen);
-                    EconomyAPI::getInstance()->reduceMoney($head, $moneystolen);
-                    $item->pop();
-                    $player->getInventory()->setItemInHand($item);
-                } else {
-                    $player->sendMessage($this->plugin->config->get("own-head"));
-                }
+        if($nametag->hasTag("PlayerHead", StringTag::class) && $block->getId() != 199){
+        //prevents duping from item frames and Checks For Tag
+            if($nametag->getString("PlayerHead") != $player->getName()){
+            // prevents player from selling their own head
+            $head = $nametag->getString("PlayerHead");
+            $headmoney = EconomyAPI::getInstance()->myMoney($head);
+            $percentage = (int) $this->plugin->config->get("percentage");
+            $moneystolen = $headmoney / $percentage;
+            $player->sendMessage($this->plugin->config->get("sell-head"));
+            EconomyAPI::getInstance()->addMoney($player, $moneystolen);
+            EconomyAPI::getInstance()->reduceMoney($head, $moneystolen);
+            $item->pop();
+            $player->getInventory()->setItemInHand($item);
+            } else {
+                $player->sendMessage($this->plugin->config->get("own-head"));
             }
         }
     }
