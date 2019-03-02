@@ -12,6 +12,11 @@
 # Use a number 0-100, anything above or below may give errors
 percantage: 0
 
+# Choose to allow Placing Of Heads Or Disable It.
+# 1 = heads Cannot Be Placed
+place-enabled: 1
+place-head: "You cannot place Heads"
+
 # When a player tries to redeem their own head
 own-head: "You cannot sell your own head"
 
