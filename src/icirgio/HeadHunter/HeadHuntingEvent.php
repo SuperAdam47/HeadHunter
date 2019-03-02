@@ -40,7 +40,7 @@ class HeadHuntingEvent implements Listener
         }
     }
     
-    public function onPlace(BlockBreakEvent $event){
+    public function onBreak(BlockBreakEvent $event){
         //Gives Head When you break it...
         $nametag = $event->getBlock()->getNamedTag();
         if($nametag->hasTag("PlayerHead", StringTag::class)){
